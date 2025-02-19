@@ -16,12 +16,14 @@ namespace GradesApp.Data
             builder.Entity<Grade>()
                 .HasOne(g => g.Student)
                 .WithMany(s => s.Grades)
-                .HasForeignKey(g => g.StudentId);
+                .HasForeignKey(g => g.StudentId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder.Entity<Grade>()
                 .HasOne(g => g.Teacher)
                 .WithMany(t => t.Grades)    
-                .HasForeignKey(g => g.TeacherId);
+                .HasForeignKey(g => g.TeacherId)
+                .OnDelete(DeleteBehavior.NoAction);
 
         }
         public DbSet<GradesApp.Data.Entities.Student> Students { get; set; } = default!;
