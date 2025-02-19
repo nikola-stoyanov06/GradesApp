@@ -5,6 +5,7 @@
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateOnly Birthday { get; set; }
-        public string Grade { get; set; }
+        public string Class { get; set; }
+        public ICollection<Grade> Grades { get; set; }
     }
 }

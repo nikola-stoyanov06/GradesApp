@@ -2,6 +2,7 @@
 {
     public class Subject : BaseEntity
     {
-        public string Subject { get; set; }
+        public string Name { get; set; }
+        public ICollection<Grade> Grades { get; set; }
     }
 }
