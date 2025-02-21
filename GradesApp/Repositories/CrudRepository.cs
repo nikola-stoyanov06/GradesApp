@@ -1,6 +1,7 @@
 ﻿using GradesApp.Data;
 using GradesApp.Data.Entities;
 using GradesApp.Repositories.Abstarctions;
+using Microsoft.EntityFrameworkCore;
 
 namespace GradesApp.Repositories
 {

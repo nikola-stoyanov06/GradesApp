@@ -1,4 +1,6 @@
-﻿namespace GradesApp.Repositories.Abstarctions
+﻿using GradesApp.Data.Entities;
+
+namespace GradesApp.Repositories.Abstarctions
 {
     public interface ICrudRepository<T> where T : BaseEntity
     {
