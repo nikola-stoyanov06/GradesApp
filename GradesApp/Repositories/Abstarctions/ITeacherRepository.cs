@@ -2,7 +2,7 @@
 
 namespace GradesApp.Repositories.Abstarctions
 {
-    public interface ITeachersRepository : ICrudRepository<Teacher>
+    public interface ITeacherRepository : ICrudRepository<Teacher>
     {
     }
 }

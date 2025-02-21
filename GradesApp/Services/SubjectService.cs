@@ -1,4 +1,8 @@
-﻿using GradesApp.Services.Abstractions;
+﻿using AutoMapper;
+using GradesApp.Data.Entities;
+using GradesApp.DTOs;
+using GradesApp.Repositories.Abstarctions;
+using GradesApp.Services.Abstractions;
 
 namespace GradesApp.Services
 {
@@ -38,8 +42,7 @@ namespace GradesApp.Services
         public ICollection<SubjectDTO> GetByName(string name)
         {
             var subjects = _subjectRepository
-                .GetByFilter(subject => subject.FirstName == name
-                    || subject.LastName == name);
+                .GetByFilter(subject => subject.Name == name);
             return _mapper.Map<ICollection<SubjectDTO>>(subjects);
         }
 

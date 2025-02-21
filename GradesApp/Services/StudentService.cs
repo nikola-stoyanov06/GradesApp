@@ -1,22 +1,28 @@
-﻿namespace GradesApp.Services
+﻿using AutoMapper;
+using GradesApp.Data.Entities;
+using GradesApp.DTOs;
+using GradesApp.Repositories.Abstarctions;
+using GradesApp.Services.Abstractions;
+
+namespace GradesApp.Services
 {
     public class StudentService : IStudentService
     {
         private readonly IStudentsRepository _studentsRepository;
         private readonly IGradeRepository _gradeRepository;
         private readonly IMapper _mapper;
-        public StudentsService(IStudentsRepository studentsRepository, IGradeRepository gradeRepository, IMapper mapper)
+        public StudentService(IStudentsRepository studentsRepository, IGradeRepository gradeRepository, IMapper mapper)
         {
             _studentsRepository = studentsRepository;
             _gradeRepository = gradeRepository;
             _mapper = mapper;
         }
 
-        public async Task AddStudentGradeAsync(StudentGradeDTO studentGradeDTO)
+        /*public async Task AddStudentGradeAsync(StudentGradeDTO studentGradeDTO)
         {
             var grade = _mapper.Map<Grade>(studentGradeDTO);
             await _gradeRepository.CreateAsync(grade);
-        }
+        }*/
 
         public async Task CreateAsync(StudentDTO studentDto)
         {
@@ -43,7 +49,8 @@
 
         public ICollection<StudentDTO> GetByName(string name)
         {
-            var students = _studentsRepository.GetByFilter(student => student.Name == name);
+            var students = _studentsRepository.GetByFilter(student => student.FirstName == name
+                || student.LastName == name);
             return _mapper.Map<ICollection<StudentDTO>>(students);
         }
 

@@ -4,11 +4,11 @@ using GradesApp.Repositories.Abstarctions;
 
 namespace GradesApp.Repositories
 {
-    public class TeachersRepository : CrudRepository<Teacher>, ITeachersRepository
+    public class TeacherRepository : CrudRepository<Teacher>, ITeacherRepository
     {
         private readonly ApplicationDbContext _context;
 
-        public TeachersRepository(ApplicationDbContext context)
+        public TeacherRepository(ApplicationDbContext context)
             : base(context)
         {
         }

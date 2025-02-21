@@ -1,4 +1,10 @@
-﻿namespace GradesApp.Services
+﻿using AutoMapper;
+using GradesApp.Data.Entities;
+using GradesApp.DTOs;
+using GradesApp.Repositories.Abstarctions;
+using GradesApp.Services.Abstractions;
+
+namespace GradesApp.Services
 {
     public class TeacherService : ITeacherService
     {
