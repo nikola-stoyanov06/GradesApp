@@ -1,4 +1,6 @@
-﻿namespace GradesApp.Data.Entities
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace GradesApp.Data.Entities
 {
     public class Teacher : BaseEntity
     {
@@ -7,6 +9,7 @@
         public DateOnly Birthday { get; set; }
         public int SubjectId { get; set; }
         public Subject Subject { get; set; }
+        public IdentityUser User { get; set; }
         public ICollection<Grade> Grades { get; set; }
     }
 }
