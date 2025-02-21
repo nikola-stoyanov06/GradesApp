@@ -9,7 +9,7 @@ namespace GradesApp.Data.Entities
         public DateOnly Birthday { get; set; }
         public int SubjectId { get; set; }
         public virtual Subject Subject { get; set; }
-        public virtual IdentityUser User { get; set; }
-        public virtual ICollection<Grade> Grades { get; set; }
+        public virtual IdentityUser? User { get; set; }
+        public virtual ICollection<Grade>? Grades { get; set; }
     }
 }
