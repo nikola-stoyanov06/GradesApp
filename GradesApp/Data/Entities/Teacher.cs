@@ -8,8 +8,8 @@ namespace GradesApp.Data.Entities
         public string LastName { get; set; }
         public DateOnly Birthday { get; set; }
         public int SubjectId { get; set; }
-        public Subject Subject { get; set; }
-        public IdentityUser User { get; set; }
-        public ICollection<Grade> Grades { get; set; }
+        public virtual Subject Subject { get; set; }
+        public virtual IdentityUser User { get; set; }
+        public virtual ICollection<Grade> Grades { get; set; }
     }
 }
