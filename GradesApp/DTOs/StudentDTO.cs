@@ -11,7 +11,7 @@ namespace GradesApp.DTOs
         public DateOnly Birthday { get; set; }
         public string Class { get; set; }
         public ICollection<Grade>? Grades { get; set; }
-        public IdentityUser? User { get; set; }
-        public string? UserId { get; set; }
+        public IdentityUser? Account { get; set; }
+        public string? AccountId { get; set; }
     }
 }

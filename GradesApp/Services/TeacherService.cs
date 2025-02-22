@@ -36,6 +36,7 @@ namespace GradesApp.Services
             if (result.Succeeded)
             {
                 teacher.AccountId = teacherUser.Id;
+                await _userManager.AddToRoleAsync(teacherUser, "Teacher");
                 await _teacherRepository.CreateAsync(teacher);
             }
             else

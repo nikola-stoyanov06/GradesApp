@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using GradesApp.Data.Entities;
 using GradesApp.DTOs;
+using GradesApp.Repositories;
 using GradesApp.Repositories.Abstarctions;
 using GradesApp.Services.Abstractions;
+using Microsoft.AspNetCore.Identity;
 
 namespace GradesApp.Services
 {
@@ -11,11 +13,14 @@ namespace GradesApp.Services
         private readonly IStudentsRepository _studentsRepository;
         private readonly IGradeRepository _gradeRepository;
         private readonly IMapper _mapper;
-        public StudentService(IStudentsRepository studentsRepository, IGradeRepository gradeRepository, IMapper mapper)
+        private readonly UserManager<IdentityUser> _userManager;
+
+        public StudentService(IStudentsRepository studentsRepository, IGradeRepository gradeRepository, IMapper mapper, UserManager<IdentityUser> userManager)
         {
             _studentsRepository = studentsRepository;
             _gradeRepository = gradeRepository;
             _mapper = mapper;
+            _userManager = userManager;
         }
 
         /*public async Task AddStudentGradeAsync(StudentGradeDTO studentGradeDTO)
@@ -24,10 +29,29 @@ namespace GradesApp.Services
             await _gradeRepository.CreateAsync(grade);
         }*/
 
-        public async Task CreateAsync(StudentDTO studentDto)
+        public async Task CreateAsync(StudentDTO studentDTO)
         {
-            var student = _mapper.Map<Student>(studentDto);
-            await _studentsRepository.CreateAsync(student);
+            Student student = _mapper.Map<Student>(studentDTO);
+
+            var studentUser = new IdentityUser()
+            {
+                Email = student.Email,
+                UserName = student.Email,
+                EmailConfirmed = true
+            };
+
+            var result = await _userManager.CreateAsync(studentUser, "Student!123");
+
+            if (result.Succeeded)
+            {
+                student.AccountId = studentUser.Id;
+                await _userManager.AddToRoleAsync(studentUser, "Student");
+                await _studentsRepository.CreateAsync(student);
+            }
+            else
+            {
+                throw new InvalidOperationException(result.Errors.First().Description.ToString());
+            }
         }
 
         public async Task DeleteAsync(int studentId)

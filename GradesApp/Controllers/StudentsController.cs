@@ -60,17 +60,8 @@ namespace GradesApp.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> Create([Bind("FirstName,LastName,Birthday,Class,Id")] StudentDTO studentDto)
+        public async Task<IActionResult> Create(StudentDTO studentDto)
         {
-            string? userId = _userManager.GetUserId(User);
-            if (userId == null)
-            {
-                ModelState.AddModelError("", "User must be logged in to create a student.");
-                return View(studentDto);
-            }
-
-            // Assign the User ID to the Student DTO
-            studentDto.UserId = userId;
             if (ModelState.IsValid)
             {
                 await _studentService.CreateAsync(studentDto);
@@ -107,7 +98,7 @@ namespace GradesApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("FirstName,LastName,Birthday,Class,Id")] StudentDTO studentDto)
+        public async Task<IActionResult> Edit(int id, StudentDTO studentDto)
         {
             if (id != studentDto.Id)
             {

@@ -158,22 +158,22 @@ namespace GradesApp.Controllers
                 var teacher = await _teacherService.GetByIdAsync(teacherEditDto.Id);
                return View(teacherEditDto);
             }
-                try
+            try
+            {
+                await _teacherService.UpdateAsync(teacherEditDto);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!await TeacherExistsAsync(teacherEditDto.Id))
                 {
-                    await _teacherService.UpdateAsync(teacherEditDto);
-                    return RedirectToAction(nameof(Index));
+                    return NotFound();
                 }
-                catch (DbUpdateConcurrencyException)
+                else
                 {
-                    if (!await TeacherExistsAsync(teacherEditDto.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    throw;
                 }
+            }
         }
 
         // GET: Teachers/Delete/5
