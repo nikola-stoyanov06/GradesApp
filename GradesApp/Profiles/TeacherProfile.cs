@@ -10,6 +10,12 @@ namespace GradesApp.Profiles
         {
             CreateMap<Teacher, TeacherDTO>()
                 .ReverseMap();
+
+            CreateMap<TeacherCreateDTO, Teacher>()
+                .ReverseMap();
+
+            CreateMap<TeacherEditDTO, Teacher>()
+    .ReverseMap();
         }
     }
 }

@@ -3,23 +3,45 @@ using GradesApp.Data.Entities;
 using GradesApp.DTOs;
 using GradesApp.Repositories.Abstarctions;
 using GradesApp.Services.Abstractions;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace GradesApp.Services
 {
     public class TeacherService : ITeacherService
     {
         private ITeacherRepository _teacherRepository;
+        private UserManager<IdentityUser> _userManager;
         private IMapper _mapper;
-        public TeacherService(ITeacherRepository teacherRepository, IMapper mapper)
+        public TeacherService(ITeacherRepository teacherRepository, UserManager<IdentityUser> userManager, IMapper mapper)
         {
             _teacherRepository = teacherRepository;
+            _userManager = userManager;
             _mapper = mapper;
         }
 
-        public async Task CreateAsync(TeacherDTO teacherDto)
+        public async Task CreateAsync(TeacherCreateDTO teacherCreateDto)
         {
-            Teacher teacher = _mapper.Map<Teacher>(teacherDto);
-            await _teacherRepository.CreateAsync(teacher);
+            Teacher teacher = _mapper.Map<Teacher>(teacherCreateDto);
+
+            var teacherUser = new IdentityUser()
+            {
+                Email = teacher.Email,
+                UserName = teacher.Email,
+                EmailConfirmed = true
+            };
+
+            var result = await _userManager.CreateAsync(teacherUser, "Teacher!123");
+
+            if (result.Succeeded)
+            {
+                teacher.AccountId = teacherUser.Id;
+                await _teacherRepository.CreateAsync(teacher);
+            }
+            else
+            {
+                throw new InvalidOperationException(result.Errors.First().Description.ToString());
+            }
         }
 
         public async Task DeleteAsync(int teacherId)
@@ -47,9 +69,9 @@ namespace GradesApp.Services
             return _mapper.Map<ICollection<TeacherDTO>>(teachers);
         }
 
-        public async Task UpdateAsync(TeacherDTO teacherDto)
-        {
-            Teacher teacher = _mapper.Map<Teacher>(teacherDto);
+        public async Task UpdateAsync(TeacherEditDTO teacherEditDto)
+        { 
+            Teacher teacher = _mapper.Map<Teacher>(teacherEditDto);
             await _teacherRepository.UpdateAsync(teacher);
         }
     }

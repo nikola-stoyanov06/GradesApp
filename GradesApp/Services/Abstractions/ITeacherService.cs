@@ -6,8 +6,8 @@ namespace GradesApp.Services.Abstractions
     {
         Task<TeacherDTO> GetByIdAsync(int id);
         Task<ICollection<TeacherDTO>> GetAllAsync();
-        Task CreateAsync(TeacherDTO teacherDto);
-        Task UpdateAsync(TeacherDTO teacherDto);
+        Task CreateAsync(TeacherCreateDTO teacherCreateDto);
+        Task UpdateAsync(TeacherEditDTO teacherEditDto);
         Task DeleteAsync(int teacherId);
         ICollection<TeacherDTO> GetByName(string name);
     }
