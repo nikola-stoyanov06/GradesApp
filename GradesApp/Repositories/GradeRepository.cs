@@ -4,17 +4,13 @@ using GradesApp.Repositories.Abstarctions;
 
 namespace GradesApp.Repositories
 {
-    public class GradeRepository : IGradeRepository
+    public class GradeRepository : CrudRepository<Grade>, IGradeRepository
     {
-        private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
+
         public GradeRepository(ApplicationDbContext context)
+            : base(context)
         {
-            _context = context;
-        }
-        public async Task CreateAsync(Grade grade)
-        {
-            _context.Grades.Add(grade);
-            await _context.SaveChangesAsync();
         }
     }
 }

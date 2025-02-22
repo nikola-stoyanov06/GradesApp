@@ -1,4 +1,5 @@
-﻿using GradesApp.Data.Entities;
+﻿using System.ComponentModel.DataAnnotations;
+using GradesApp.Data.Entities;
 using Microsoft.AspNetCore.Identity;
 
 namespace GradesApp.DTOs

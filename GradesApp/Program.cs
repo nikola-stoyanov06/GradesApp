@@ -35,6 +35,7 @@ namespace GradesApp
             builder.Services.AddScoped<IStudentService, StudentService>();
             builder.Services.AddScoped<ITeacherService, TeacherService>();
             builder.Services.AddScoped<ISubjectService, SubjectService>();
+            builder.Services.AddScoped<IGradeService, GradeService>();
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             var app = builder.Build();
             

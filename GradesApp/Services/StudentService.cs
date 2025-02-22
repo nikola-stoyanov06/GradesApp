@@ -23,12 +23,6 @@ namespace GradesApp.Services
             _userManager = userManager;
         }
 
-        /*public async Task AddStudentGradeAsync(StudentGradeDTO studentGradeDTO)
-        {
-            var grade = _mapper.Map<Grade>(studentGradeDTO);
-            await _gradeRepository.CreateAsync(grade);
-        }*/
-
         public async Task CreateAsync(StudentDTO studentDTO)
         {
             Student student = _mapper.Map<Student>(studentDTO);

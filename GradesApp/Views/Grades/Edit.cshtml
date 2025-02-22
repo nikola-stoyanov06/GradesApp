@@ -1,0 +1,43 @@
+﻿@model CreateGradeDTO
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Grade</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="StudentId">Select Subject</label>
+                <select asp-for="StudentId" class="form-control" asp-items="Model.Students">
+                    <option value="">-- Select a Student --</option> <!-- Default option -->
+                </select>
+                <span asp-validation-for="Student" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Value" class="control-label"></label>
+                <input asp-for="Value" class="form-control" step="0.1" min="2.0" max="6.0" />
+                <span asp-validation-for="Value" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="Id"/>
+            <input type="hidden" asp-for="TeacherId" />
+            <input type="hidden" asp-for="SubjectId" />
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

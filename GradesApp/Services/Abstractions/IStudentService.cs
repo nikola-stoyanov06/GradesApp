@@ -10,6 +10,5 @@ namespace GradesApp.Services.Abstractions
         Task UpdateAsync(StudentDTO studentDto);
         Task DeleteAsync(int studentId);
         ICollection<StudentDTO> GetByName(string name);
-        //Task AddStudentGradeAsync(StudentGradeDTO studentGradeDTO);
     }
 }

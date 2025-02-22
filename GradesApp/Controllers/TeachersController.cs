@@ -53,10 +53,10 @@ namespace GradesApp.Controllers
         }
 
         // GET: Teachers/Create
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task< IActionResult> Create()
         {
-            var subjects = await _subjectService.GetAllAsync(); // ✅ Fetch from service
+            var subjects = await _subjectService.GetAllAsync();
 
             var teacherCreateDto = new TeacherCreateDTO
             {
@@ -77,7 +77,7 @@ namespace GradesApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create(TeacherCreateDTO teacherCreateDto)
         {
             if (!ModelState.IsValid)
@@ -104,6 +104,7 @@ namespace GradesApp.Controllers
         }
 
         // GET: Teachers/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
 
@@ -144,6 +145,7 @@ namespace GradesApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, TeacherEditDTO teacherEditDto)
         {
             if (id != teacherEditDto.Id)
@@ -177,6 +179,7 @@ namespace GradesApp.Controllers
         }
 
         // GET: Teachers/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -196,6 +199,7 @@ namespace GradesApp.Controllers
         // POST: Teachers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             await _teacherService.DeleteAsync(id);

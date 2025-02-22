@@ -10,5 +10,6 @@ namespace GradesApp.Services.Abstractions
         Task UpdateAsync(TeacherEditDTO teacherEditDto);
         Task DeleteAsync(int teacherId);
         ICollection<TeacherDTO> GetByName(string name);
+        ICollection<TeacherDTO> GetByAccountId(string id);
     }
 }

@@ -69,6 +69,12 @@ namespace GradesApp.Services
                     || teacher.LastName == name);
             return _mapper.Map<ICollection<TeacherDTO>>(teachers);
         }
+        public ICollection<TeacherDTO> GetByAccountId(string id)
+        {
+            var teachers = _teacherRepository
+                .GetByFilter(teacher => teacher.AccountId == id);
+            return _mapper.Map<ICollection<TeacherDTO>>(teachers);
+        }
 
         public async Task UpdateAsync(TeacherEditDTO teacherEditDto)
         { 
