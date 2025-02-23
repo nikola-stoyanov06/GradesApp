@@ -119,11 +119,17 @@ namespace GradesApp.Controllers
             {
                 return NotFound();
             }
+            var user = await _userManager.GetUserAsync(User);
+            var teacher = _teacherService.GetByAccountId(user.Id).FirstOrDefault();
             var grade = await _gradeService.GetByIdAsync(id.Value);
             
             if (grade == null)
             {
                 return NotFound();
+            }
+            if (teacher == null || grade.TeacherId != teacher.Id)
+            {
+                return Forbid(); 
             }
             var dto = _mapper.Map<CreateGradeDTO>(grade);
             var students = await _studentService.GetAllAsync();
@@ -180,13 +186,17 @@ namespace GradesApp.Controllers
             {
                 return NotFound();
             }
-
+            var user = await _userManager.GetUserAsync(User);
+            var teacher = _teacherService.GetByAccountId(user.Id).FirstOrDefault();
             var grade = await _gradeService.GetByIdAsync(id.Value);
             if (grade == null)
             {
                 return NotFound();
             }
-
+            if (teacher == null || grade.TeacherId != teacher.Id)
+            {
+                return Forbid();
+            }
             return View(grade);
         }
 
